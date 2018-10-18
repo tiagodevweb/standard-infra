@@ -5,26 +5,14 @@ services:
     build:
       context: ./docker/app
       dockerfile: Dockerfile
-    image: tiagodevweb/std-app:latest
     restart: always
     networks:
       - example
     volumes:
-      - ./example:/var/www/html
+      - ./:/var/www/html
     ports:
-      - ${APP_PORT}:80
+      - 8080:80
     working_dir: /var/www/html
-  node:
-    build:
-      context: ./docker/node
-      dockerfile: Dockerfile
-    image: tiagodevweb/std-node:latest
-    networks:
-     - example
-    volumes:
-     - .:/opt
-    working_dir: /opt
-    command: echo hi
   db:
     container_name: example_db
     image: mysql:5.7
@@ -35,7 +23,7 @@ services:
       MYSQL_USER: homestead
       MYSQL_PASSWORD: secret
     ports:
-      - ${DB_PORT}:3306
+      - 33060:3306
     networks:
       - example
     volumes:
