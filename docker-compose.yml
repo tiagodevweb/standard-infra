@@ -13,6 +13,17 @@ services:
     ports:
       - 8080:80
     working_dir: /var/www/html
+  node:
+    container_name: example_node
+    build:
+      context: ./docker/node
+      dockerfile: Dockerfile
+    networks:
+     - example
+    volumes:
+     - .:/opt
+    working_dir: /opt
+    command: echo hi
   db:
     container_name: example_db
     image: mysql:5.7
