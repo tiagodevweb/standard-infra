@@ -28,10 +28,14 @@ RUN apt-get update \
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
     && ln -sf /dev/stderr /var/log/nginx/error.log
 
-RUN curl -sL https://deb.nodesource.com/setup_10.x | bash - \
+RUN apt-get update \
+    && apt-get install -y php7.2-mongodb
+
+RUN curl -sL https://deb.nodesource.com/setup_9.x | bash - \
     && apt-get update \
     && apt-get install -y nodejs \
-    && npm install -g n
+    && npm install -g n \
+    && n 6.14.1
 
 ADD default /etc/nginx/sites-available/default
 ADD supervisord.conf /etc/supervisor/conf.d/supervisord.conf

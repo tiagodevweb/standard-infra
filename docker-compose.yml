@@ -39,6 +39,19 @@ services:
       - example
     volumes:
       - dbdata:/var/lib/mysql
+  mongo:
+    container_name: example_mongo
+    image: mongo:latest
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: secret
+    ports:
+      - 27017:27017
+    networks:
+      - example
+    volumes:
+      - /mongodata:/data/db
   cache:
     container_name: example_cache
     image: redis:alpine
